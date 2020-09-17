@@ -141,7 +141,7 @@ function Enter-VisualStudioShell {
 	)
 	Process {
 		if ($null -eq $VisualStudio) {
-            if (0 -eq $VSProduct.Length) {
+            if ([string]::IsNullOrEmpty($VSProduct)) {
                 $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
             }
             else {

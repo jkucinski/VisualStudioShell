@@ -19,7 +19,7 @@ function Get-VisualStudio {
     )
 
     $VS = $null
-    if (0 -eq $Product.Length) {
+    if ([string]::IsNullOrEmpty($Product)) {
         $VS =
         Get-VSSetupInstance -Prerelease:$(-not $Prerelease.IsPresent) |
         Select-VSSetupInstance -Latest |
