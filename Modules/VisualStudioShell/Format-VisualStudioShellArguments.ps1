@@ -44,9 +44,6 @@ using module VSSetup
 	.Parameter NoLogo
 	Suppress printing of the developer command prompt banner.
 
-	.Parameter Product
-	One or more products to select. Wildcards are supported.
-
 	.Parameter StartDirectoryMode
 	The startup directory mode.
 
