@@ -2,6 +2,7 @@
 	"editor.insertSpaces": false,
 	"editor.renderWhitespace": "all",
 	"editor.tabSize": 4,
+
 	"powershell.codeFormatting.alignPropertyValuePairs": true,
 	"powershell.codeFormatting.autoCorrectAliases": false,
 	"powershell.codeFormatting.newLineAfterCloseBrace": false,
@@ -18,5 +19,5 @@
 	"powershell.codeFormatting.WhitespaceInsideBrace": true,
 	"powershell.helpCompletion": "BlockComment",
 	"powershell.scriptAnalysis.enable": true,
-	"powershell.scriptAnalysis.settingsPath": "PsScriptAnalyzerSettings.psd1",
+	"powershell.scriptAnalysis.settingsPath": "PsScriptAnalyzerSettings.psd1"
 }

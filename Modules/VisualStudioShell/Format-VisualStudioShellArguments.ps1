@@ -81,7 +81,7 @@ function Format-VisualStudioShellArguments {
 		[Alias("host_arch")]
 		[string]$HostArchitecture = $null,
 
-		[ValidateScript( { Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty })]
+		[ValidateScript({ Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty })]
 		[Alias("winsdk")]
 		[string]$WindowsSdkVersion = $null,
 
@@ -143,7 +143,7 @@ function Format-VisualStudioShellArguments {
 		[string]$Last = $null
 		function IsThisASwitch([string]$value) {
 			$null -ne $value -and `
-				$value.Length -gt 1 -and `
+			$value.Length -gt 1 -and `
 			($value.StartsWith("/") -or $value.StartsWith("-"))
 		}
 		foreach ($item in $RemainingArguments) {
