@@ -43,14 +43,9 @@ using module VSSetup
 
 	.Parameter NoLogo
 	Suppress printing of the developer command prompt banner.
-	
-	.Parameter VsProduct
-    Select Visual Studio Product installed.
-    This is required if installed Visual Studio Build Tools.
-    Example for VS Build Tools: -vs_product *Build*
 
 	.Parameter Product
-    One or more products to select. Wildcards are supported.
+	One or more products to select. Wildcards are supported.
 
 	.Parameter StartDirectoryMode
 	The startup directory mode.
@@ -119,9 +114,6 @@ function Enter-VisualStudioShell {
 
 		[Alias("no_logo")]
 		[switch]$NoLogo = [switch]::new($false),
-		
-		[Alias("vs_product")]
-        [string]$VsProduct = $null,
 
 		[string[]]$Product = $null,
 
@@ -146,22 +138,12 @@ function Enter-VisualStudioShell {
 	)
 	Process {
 		if ($null -eq $VisualStudio) {
-<<<<<<< HEAD
 			if ($null -eq $Product) {
 				$VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
 			} else {
 				$VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent) -Product:$Product
 			}
 		} elseif (-not (Confirm-VisualStudio $VisualStudio)) {
-=======
-            if ([string]::IsNullOrEmpty($VSProduct)) {
-                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
-            }
-            else {
-                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent) -Product:$VsProduct
-            }
-        } elseif (-not (Confirm-VisualStudio $VisualStudio)) {
->>>>>>> master
 			Write-Error "The Visual Studio parameter is not valid. Remove the parameter or specify a valid value."
 			return;
 		}
