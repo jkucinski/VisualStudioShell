@@ -101,7 +101,7 @@ function Enter-VisualStudioShell {
 		[Alias("host_arch")]
 		[string]$HostArchitecture = $null,
 
-		[ValidateScript( { Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty -VisualStudio $VisualStudio })]
+		[ValidateScript({ Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty -VisualStudio $VisualStudio })]
 		[Alias("winsdk")]
 		[string]$WindowsSdkVersion = $null,
 
@@ -207,8 +207,8 @@ function Enter-VisualStudioShell {
 				while ($x -is [System.AggregateException]) { $x = $x.InnerException }
 				if ($x -is [System.MissingMethodException] -and ($x.Message -match "GetAccessControl")) {
 					$m =
-					"Ignoring expected exception {0} with message '{1}' " +
-					"because the environment has been successfully initialized."
+						"Ignoring expected exception {0} with message '{1}' " +
+						"because the environment has been successfully initialized."
 					$m = $m -f @(
 						$x.GetType().Name
 						$x.Message
