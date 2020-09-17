@@ -43,6 +43,11 @@ using module VSSetup
 
 	.Parameter NoLogo
 	Suppress printing of the developer command prompt banner.
+	
+	.Parameter VsProduct
+    Select Visual Studio Product installed.
+    This is required if installed Visual Studio Build Tools.
+    Example for VS Build Tools: -vs_product *Build*
 
 	.Parameter StartDirectoryMode
 	The startup directory mode.
@@ -111,6 +116,9 @@ function Enter-VisualStudioShell {
 
 		[Alias("no_logo")]
 		[switch]$NoLogo = [switch]::new($false),
+		
+		[Alias("vs_product")]
+        [string]$VsProduct = $null,
 
 		[ValidateSet($null, "none", "auto")]
 		[Alias("startdir")]
@@ -133,8 +141,13 @@ function Enter-VisualStudioShell {
 	)
 	Process {
 		if ($null -eq $VisualStudio) {
-			$VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
-		} elseif (-not (Confirm-VisualStudio $VisualStudio)) {
+            if ([string]::IsNullOrEmpty($VSProduct)) {
+                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
+            }
+            else {
+                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent) -Product:$VsProduct
+            }
+        } elseif (-not (Confirm-VisualStudio $VisualStudio)) {
 			Write-Error "The Visual Studio parameter is not valid. Remove the parameter or specify a valid value."
 			return;
 		}
