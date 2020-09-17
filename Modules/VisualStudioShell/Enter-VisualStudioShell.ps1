@@ -43,11 +43,11 @@ using module VSSetup
 
 	.Parameter NoLogo
 	Suppress printing of the developer command prompt banner.
-	
-	.Parameter VsProduct
+
+	.Parameter Product
     Select Visual Studio Product installed.
     This is required if installed Visual Studio Build Tools.
-    Example for VS Build Tools: -vs_product *Build*
+    Example for VS Build Tools: -product *Build*
 
 	.Parameter StartDirectoryMode
 	The startup directory mode.
@@ -103,7 +103,7 @@ function Enter-VisualStudioShell {
 		[Alias("host_arch")]
 		[string]$HostArchitecture = $null,
 
-		[ValidateScript({ Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty -VisualStudio $VisualStudio })]
+		[ValidateScript( { Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty -VisualStudio $VisualStudio })]
 		[Alias("winsdk")]
 		[string]$WindowsSdkVersion = $null,
 
@@ -116,9 +116,9 @@ function Enter-VisualStudioShell {
 
 		[Alias("no_logo")]
 		[switch]$NoLogo = [switch]::new($false),
-		
-		[Alias("vs_product")]
-        [string]$VsProduct = $null,
+
+		[Alias("product")]
+		[string]$Product = $null,
 
 		[ValidateSet($null, "none", "auto")]
 		[Alias("startdir")]
@@ -141,13 +141,12 @@ function Enter-VisualStudioShell {
 	)
 	Process {
 		if ($null -eq $VisualStudio) {
-            if ([string]::IsNullOrEmpty($VSProduct)) {
-                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
-            }
-            else {
-                $VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent) -Product:$VsProduct
-            }
-        } elseif (-not (Confirm-VisualStudio $VisualStudio)) {
+			if ([string]::IsNullOrEmpty($Product)) {
+				$VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent)
+			} else {
+				$VisualStudio = Get-VisualStudio -ExcludePrerelease:($ExcludePrerelease.IsPresent) -Product:$Product
+			}
+		} elseif (-not (Confirm-VisualStudio $VisualStudio)) {
 			Write-Error "The Visual Studio parameter is not valid. Remove the parameter or specify a valid value."
 			return;
 		}
@@ -211,8 +210,8 @@ function Enter-VisualStudioShell {
 				while ($x -is [System.AggregateException]) { $x = $x.InnerException }
 				if ($x -is [System.MissingMethodException] -and ($x.Message -match "GetAccessControl")) {
 					$m =
-						"Ignoring expected exception {0} with message '{1}' " +
-						"because the environment has been successfully initialized."
+					"Ignoring expected exception {0} with message '{1}' " +
+					"because the environment has been successfully initialized."
 					$m = $m -f @(
 						$x.GetType().Name
 						$x.Message

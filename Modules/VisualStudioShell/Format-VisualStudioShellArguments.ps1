@@ -43,11 +43,11 @@ using module VSSetup
 
 	.Parameter NoLogo
 	Suppress printing of the developer command prompt banner.
-	
-	.Parameter VsProduct
+
+	.Parameter Product
     Select Visual Studio Product installed.
     This is required if installed Visual Studio Build Tools.
-    Example for VS Build Tools: -vs_product *Build*
+    Example for VS Build Tools: -product *Build*
 
 	.Parameter StartDirectoryMode
 	The startup directory mode.
@@ -83,7 +83,7 @@ function Format-VisualStudioShellArguments {
 		[Alias("host_arch")]
 		[string]$HostArchitecture = $null,
 
-		[ValidateScript({ Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty })]
+		[ValidateScript( { Confirm-WindowsSdkVersion -WindowsSdkVersion $_ -AllowNullOrEmpty })]
 		[Alias("winsdk")]
 		[string]$WindowsSdkVersion = $null,
 
@@ -145,7 +145,7 @@ function Format-VisualStudioShellArguments {
 		[string]$Last = $null
 		function IsThisASwitch([string]$value) {
 			$null -ne $value -and `
-			$value.Length -gt 1 -and `
+				$value.Length -gt 1 -and `
 			($value.StartsWith("/") -or $value.StartsWith("-"))
 		}
 		foreach ($item in $RemainingArguments) {
