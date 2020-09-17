@@ -8,18 +8,18 @@ using module VSSetup
 	Do not allow selection of Preview versions of Visual Studio. (Passed through negated to Get-VSSetupInstance)
 
 	.Parameter Product
-	Pass Visual Studio Product
+	One or more products to select. Wildcards are supported.
 #>
 function Get-VisualStudio {
 	[CmdLetBinding()]
 	[OutputType([Microsoft.VisualStudio.Setup.Instance])]
 	Param(
 		[switch]$ExcludePrerelease = [switch]::new($false),
-		[string]$Product = $null
+		[string[]]$Product = $null
 	)
 
 	$VS = $null
-	if ([string]::IsNullOrEmpty($Product)) {
+	if ($null -eq $Product) {
 		$VS =
 			Get-VSSetupInstance -Prerelease:$(-not $Prerelease.IsPresent) |
 			Select-VSSetupInstance -Latest |

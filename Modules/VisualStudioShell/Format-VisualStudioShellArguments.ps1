@@ -45,9 +45,7 @@ using module VSSetup
 	Suppress printing of the developer command prompt banner.
 
 	.Parameter Product
-    Select Visual Studio Product installed.
-    This is required if installed Visual Studio Build Tools.
-    Example for VS Build Tools: -product *Build*
+    One or more products to select. Wildcards are supported.
 
 	.Parameter StartDirectoryMode
 	The startup directory mode.
