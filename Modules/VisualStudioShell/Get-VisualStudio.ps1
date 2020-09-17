@@ -7,7 +7,7 @@ using module VSSetup
 	.Parameter ExcludePrerelease
 	Do not allow selection of Preview versions of Visual Studio. (Passed through negated to Get-VSSetupInstance)
 	
-	.Paramaeter Product
+	.Parameter Product
 	Pass Visual Studio Product
 #>
 function Get-VisualStudio {
